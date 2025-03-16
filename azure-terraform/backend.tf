@@ -2,9 +2,9 @@
 
 terraform {
   backend "azurerm" {
-    resource_group_name   = "susilnemterraformstate-rg"
-    storage_account_name  = "susilnemtfstate"
-    container_name        = "terraform"
-    key                   = "playground.tfstate"
+    resource_group_name  = "susilnemterraformstate-rg"
+    storage_account_name = "susilnemtfstate"
+    container_name       = "terraform"
+    key                  = "playground.tfstate"
   }
 }

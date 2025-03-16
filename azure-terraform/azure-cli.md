@@ -1,7 +1,7 @@
 ## 1. Create the Resource Group
 
 ```bash=
-az group create --name susilnemterraform-rg --location 'eastus'
+az group create --name susilnemterraformstate-rg --location 'eastus'
 ```
 
 ## 2. Create the Storage Account
@@ -9,7 +9,7 @@ az group create --name susilnemterraform-rg --location 'eastus'
 ```bash=
 az storage account create \
   --name susilnemtfstate \
-  --resource-group susilnemterraform-rg \
+  --resource-group susilnemterraformstate-rg \
   --location 'eastus' \
   --sku Standard_LRS \
   --encryption-services blob
@@ -26,7 +26,7 @@ az storage container create \
 
 ## 4. Verify the Resources
 ```bash=
-az group show --name susilnemterraform-rg
-az storage account show --name susilnemtfstate --resource-group susilnemterraform-rg
+az group show --name susilnemterraformstate-rg
+az storage account show --name susilnemtfstate --resource-group susilnemterraformstate-rg
 az storage container show --name terraform --account-name susilnemtfstate --auth-mode login
 ```
