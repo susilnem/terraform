@@ -1,0 +1,8 @@
+resource_group_name="susilnem-rg"
+resource_group_location="East US"
+
+# networking
+vnet_name="myVNet"
+
+# Subnet
+subnet_name="subnet1"
