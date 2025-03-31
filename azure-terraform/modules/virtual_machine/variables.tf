@@ -5,6 +5,11 @@ variable "vm_name" {
   type        = string
 }
 
+variable "vm_id" {
+  description = "The ID of the virtual machine."
+  type        = string
+}
+
 variable "location" {
   description = "The location/region where the virtual machine will be created."
   type        = string
