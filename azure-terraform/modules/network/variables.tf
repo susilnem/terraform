@@ -65,3 +65,15 @@ variable "allocation_method" {
   type        = string
   default     = "Static"
 }
+
+# Route table
+variable "route_tables" {
+  description = "Route tables of the virtual network"
+  type        = list(object({
+    name       = string
+    address_prefix = string
+    next_hop_type = string
+    next_hop_ip_address = string
+  }))
+  default = []
+}

@@ -2,7 +2,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
 
 resource "azurerm_virtual_network" "vnet" {
-    name = var.vnet_name
+    name = "${format("%s-vnet", var.vnet_name)}"
     location = var.location
     resource_group_name = var.resource_group_name
     address_space = var.address_space
@@ -12,7 +12,7 @@ resource "azurerm_virtual_network" "vnet" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
 
 resource "azurerm_subnet" "subnets" {
-    name = var.subnet_name
+    name = "${format("%s-subnet", var.vnet_name)}"
     resource_group_name = var.resource_group_name
     virtual_network_name = azurerm_virtual_network.vnet.name
     address_prefixes     = var.address_prefixes
@@ -67,5 +67,27 @@ resource "azurerm_network_interface" "nic" {
         subnet_id = azurerm_subnet.subnets.id
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id = azurerm_public_ip.public_ip.id
+    }
+}
+
+# Azure Route Table
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route_table
+
+resource "azurerm_route_table" "route_table" {
+    count = length(var.route_tables)
+    name = "${var.route_tables[count.index].name}-route-table"
+    location = var.location
+    resource_group_name = var.resource_group_name
+    tags = var.route_tables[count.index].tags
+
+    dynamic "route" {
+        for_each = var.route_tables[count.index].routes
+
+        content {
+            name = route.value.name
+            address_prefix = route.value.address_prefix
+            next_hop_type = route.value.next_hop_type
+            next_hop_in_ip_address = route.value.next_hop_ip_address
+        }
     }
 }
