@@ -31,10 +31,10 @@ variable "subnets" {
   default = null
 }
 
-# variable "vnet_subnet_id" {
-#   description = "The ID of the subnet in which to create the virtual machine."
-#   type        = string
-# }
+variable "subnet_name" {
+  description = "The ID of the subnet in which to create the virtual machine."
+  type        = string
+}
 
 # Virtual machine
 variable "vm_name" {
@@ -66,3 +66,8 @@ variable "create_public_ip" {
   default     = false
 }
 
+variable "address_space" {
+  description = "Address space of the virtual network"
+  type        = list(string)
+  default     = ["10.0.0.0/8"]
+}

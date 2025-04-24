@@ -1,14 +1,14 @@
 locals {
-  subnets = {
-    for key, subnet in azurerm_subnet.subnet :
-    key => {
+  subnets = [
+    for subnet in azurerm_subnet.subnet :
+    {
       name = subnet.name
       id   = subnet.id
     }
-  }
+  ]
 }
 # Virtual network
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_networkmain
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
 
 resource "azurerm_virtual_network" "vnet" {
   count               = var.vnet_name == null ? 0 : 1
