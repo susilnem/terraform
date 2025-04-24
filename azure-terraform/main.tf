@@ -15,7 +15,8 @@ module "network" {
   vnet_name = var.vnet_name
 
   # Subnets
-  subnet_name = var.subnet_name
+  subnets          = var.subnets
+  create_public_ip = var.create_public_ip
 }
 
 # Virtual machine
@@ -29,10 +30,8 @@ module "virtual_machine" {
   vm_name        = var.vm_name
   vm_size        = var.vm_size
   admin_username = var.admin_username
-  admin_password = var.admin_password
-
+  vnet_subnet_id = module.network.subnet_id
+  public_id = module.network.public_ip_id
   # network
-  vnet_name             = var.vnet_name
-  subnet_name           = var.subnet_name
-  network_interface_ids = [module.network.network_interface_id]
+  ssh_public_key_path   = var.ssh_public_key_path
 }
