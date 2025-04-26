@@ -99,4 +99,3 @@ variable "storage_account_type" {
     error_message = "The storage account type must be one of Standard_LRS, Premium_LRS, StandardSSD_LRS, StandardSSD_ZRS, or Premium_ZRS."
   }
 }
-

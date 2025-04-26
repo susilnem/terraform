@@ -4,24 +4,26 @@ output "vnet_id" {
 }
 
 output "subnet_ids" {
-  value = { for k, s in azurerm_subnet.subnet : k => s.id }
+  value       = { for k, s in azurerm_subnet.subnet : k => s.id }
+  description = "The IDs of the subnets"
 }
 
 output "subnets_id_list" {
-  value = local.subnets
+  value       = local.subnets
+  description = "The list of subnet IDs"
 }
 
 output "nsg_id" {
-  description = "The ID of the network security group"
   value       = azurerm_network_security_group.nsg.id
+  description = "The ID of the network security group"
 }
 
 output "public_ip_id" {
-  description = "The ID of the public IP"
   value       = azurerm_public_ip.public_ip[0].id
+  description = "The ID of the public IP"
 }
 
 output "vnet_public_ip_address" {
-  description = "The public IP address"
   value       = azurerm_public_ip.public_ip[0].ip_address
+  description = "The public IP address"
 }
