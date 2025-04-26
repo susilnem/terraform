@@ -1,3 +1,15 @@
+# Setting version and provider
+terraform {
+  required_version = ">1.11.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>4.23.0"
+    }
+  }
+}
+
+# Local vvariable
 locals {
   subnets = [
     for subnet in azurerm_subnet.subnet :
@@ -7,6 +19,7 @@ locals {
     }
   ]
 }
+
 # Virtual network
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
 

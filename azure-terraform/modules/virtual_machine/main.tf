@@ -1,3 +1,14 @@
+# Setting version and provider
+terraform {
+  required_version = ">1.11.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>4.23.0"
+    }
+  }
+}
+
 # Network interface
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface
 
@@ -10,7 +21,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = "${var.vm_name}-ipconfig"
     subnet_id                     = var.vnet_subnet_id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = var.public_id != "" ? var.public_id : null 
+    public_ip_address_id          = var.public_id != "" ? var.public_id : null
   }
 }
 

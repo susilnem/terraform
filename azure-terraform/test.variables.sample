@@ -1,8 +1,21 @@
-resource_group_name="susilnem-rg"
-resource_group_location="East US"
+resource_group_name     = "susilnem-rg"
+resource_group_location = "East US"
 
 # networking
-vnet_name="myVNet"
+vnet_name        = "myVNet"
+create_public_ip = true
+vm_name          = "myVM"
+vm_size          = "Standard_F2"
+admin_username   = "susilnem"
 
 # Subnet
-subnet_name="subnet1"
+subnets = {
+  mySubnet = {
+    name                = "mySubnet"
+    address_prefixes    = ["10.0.0.0/24"]
+    service_endpoints   = ["Microsoft.Storage"]
+    service_delegations = {}
+  }
+}
+subnet_name         = "mySubnet"
+ssh_public_key_path = "<ssh_public_key_path"
