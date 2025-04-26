@@ -18,32 +18,36 @@ variable "vnet_name" {
 variable "address_space" {
   description = "Address space of the virtual network"
   type        = list(string)
-  default = [ "10.0.0.0/8" ]
+  default     = ["10.0.0.0/8"]
 }
 
 # Subnets
-variable "subnet_name" {
+variable "subnets" {
   description = "Subnets of the virtual network"
-  type        = string
+  type = map(object({
+    name              = string
+    address_prefixes  = list(string)
+    service_endpoints = list(string)
+    service_delegations = map(object({
+      name    = string
+      actions = list(string)
+    }))
+  }))
+  default = null
 }
 
-variable "address_prefixes" {
-  description = "Address prefixes of the subnets"
-  type        = list(string)
-  default = [ "10.2.0.0/16" ]
-  
-}
 
-variable "service_endpoints" {
-  description = "Service endpoints of the virtual network"
-  type        = list(string)
-  default = ["Microsoft.Storage"]
+# Create Public IP
+variable "create_public_ip" {
+  description = "Create a public IP address"
+  type        = bool
+  default     = false
 }
 
 # Network security group
 variable "security_rules" {
   description = "Security rules of the network security group"
-  type        = list(object({
+  type = list(object({
     name                       = string
     priority                   = number
     direction                  = string
@@ -58,21 +62,13 @@ variable "security_rules" {
 }
 
 
-# Public IP
-# Possible values are `Static` or `Dynamic`.
-variable "allocation_method" {
-  description = "Allocation method of the public IP"
-  type        = string
-  default     = "Static"
-}
-
 # Route table
 variable "route_tables" {
   description = "Route tables of the virtual network"
-  type        = list(object({
-    name       = string
-    address_prefix = string
-    next_hop_type = string
+  type = list(object({
+    name                = string
+    address_prefix      = string
+    next_hop_type       = string
     next_hop_ip_address = string
   }))
   default = []

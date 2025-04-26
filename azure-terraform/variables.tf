@@ -16,9 +16,23 @@ variable "vnet_name" {
   type        = string
 }
 
-# Subnet
+# Subnets
+variable "subnets" {
+  description = "Subnets of the virtual network"
+  type = map(object({
+    name              = string
+    address_prefixes  = list(string)
+    service_endpoints = list(string)
+    service_delegations = map(object({
+      name    = string
+      actions = list(string)
+    }))
+  }))
+  default = null
+}
+
 variable "subnet_name" {
-  description = "The name of the subnet."
+  description = "The ID of the subnet in which to create the virtual machine."
   type        = string
 }
 
@@ -41,8 +55,19 @@ variable "admin_username" {
   type        = string
 }
 
-# Virtual machine admin password
-variable "admin_password" {
-  description = "The password of the local administrator to create on the virtual machine."
+variable "ssh_public_key_path" {
+  description = "The path to the SSH public key file."
   type        = string
+}
+
+variable "create_public_ip" {
+  description = "Create a public IP address"
+  type        = bool
+  default     = false
+}
+
+variable "address_space" {
+  description = "Address space of the virtual network"
+  type        = list(string)
+  default     = ["10.0.0.0/8"]
 }
